@@ -1,10 +1,41 @@
+// fichier: rules.drl
 package rules
 
-import ma.medtech.drools.model.Person;
+import ma.medtech.drools.model.Client;
+import ma.medtech.drools.model.Transaction;
 
-rule "Alerte senior"
+rule "Client senior"
 when
-  $p : Person(age >= 65)
+  $c : Client(age >= 65)
 then
-  System.out.println("Senior detected : " + $p.getName());
+  System.out.println("Client senior detected : " + $c.getName());
+end
+
+rule "Transaction pays à risque"
+when
+  $t : Transaction(amount > 10000, country in ("NG", "IR", "RU"))
+then
+  System.out.println("ALERTE : transaction dans pays a risque par " + $t.getClient().getName());
+end
+
+rule "Client admin"
+when
+  $c : Client(roles contains "ADMIN")
+then
+  System.out.println("Client admin identified : " + $c.getName());
+end
+
+rule "Jeune client international"
+when
+  $c : Client(age < 40, country not in ("FR", "BE"))
+then
+  System.out.println("Client jeune et non europeen : " + $c.getName());
+end
+
+rule "Transaction senior USD"
+when
+  $c : Client(age >= 65)
+  $t : Transaction(currency == "USD", client == $c)
+then
+  System.out.println("Transaction en USD par un senior : " + $c.getName());
 end
