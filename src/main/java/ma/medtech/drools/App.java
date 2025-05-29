@@ -3,17 +3,21 @@ package ma.medtech.drools;
 import ma.medtech.drools.model.Person;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.StatelessKieSession;
 
 public class App {
     public static void main(String[] args) {
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kc = ks.getKieClasspathContainer();
-        KieSession ksession = kc.newKieSession("rulesSession");
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieContainer = kieServices.getKieClasspathContainer();
 
-        Person p1 = new Person("Alice", 70);
-        ksession.insert(p1);
-        ksession.fireAllRules();
-        ksession.dispose();
+        StatelessKieSession session = kieContainer.newStatelessKieSession("rulesSession");
+
+        Person jean = new Person("Jean", 70);
+
+        System.out.println("=== Avant exécution : " + jean);
+        session.execute(jean);
+        System.out.println("**************************");
+        session.execute(jean);
+        System.out.println("=== Après exécution : " + jean);
     }
 }
