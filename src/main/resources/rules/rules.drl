@@ -5,10 +5,9 @@ import ma.medtech.drools.model.Transaction;
 
 rule "Alerte transaction fraud"
 when
-  $t : Transaction($clientId: clientId, amount > 0)
-  $c: Client(id == $clientId, $c.getTotalAmount() >= 10000.0)
+  $c: Client($c.getTotalAmount() >= 10000.0)
 then
-  System.out.println("FRAUD attempt detected. Client '" + $c.getName() + "' reached a total amount of " + $c.getTotalAmount() + " after transaction of " + $t.getAmount());
+  System.out.println("FRAUD attempt detected. Client '" + $c.getName() + "' reached a total amount of " + $c.getTotalAmount());
 end
 
 rule "Cumul du montant de la transaction"
