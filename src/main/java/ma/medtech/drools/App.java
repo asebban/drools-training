@@ -32,5 +32,7 @@ public class App {
         ksession.insert(transaction4);
         ksession.fireAllRules();
 
+        ksession.dispose();
+
     }
 }
