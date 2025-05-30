@@ -9,11 +9,11 @@ public class App {
     public static void main(String[] args) {
         KieServices ks = KieServices.Factory.get();
         KieContainer kc = ks.getKieClasspathContainer();
-        KieSession ksession = kc.newKieSession("rulesSession");
+        KieSession session = kc.newKieSession("rulesSession");
 
-        Person p1 = new Person("Alice", 70);
-        ksession.insert(p1);
-        ksession.fireAllRules();
-        ksession.dispose();
+        Person p = new Person("Jean", 20);
+        session.insert(p);
+        session.fireAllRules();
+        session.dispose();
     }
 }
