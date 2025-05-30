@@ -1,10 +1,19 @@
 package rules
 
-import ma.medtech.drools.model.Person;
-
-rule "Alerte senior"
+rule "Validate A"
+agenda-group "validation"
+lock-on-active true
 when
-  $p : Person(age >= 65)
+  $s : String(this == "A")
 then
-  System.out.println("Senior detected : " + $p.getName());
+  System.out.println("Regle A");
+end
+
+rule "Validate B"
+agenda-group "validation"
+lock-on-active true
+when
+  $s : String(this == "B")
+then
+  System.out.println("Regle B");
 end
