@@ -1,10 +1,29 @@
 package rules
 
-import ma.medtech.drools.model.Person;
+import ma.medtech.drools.model.Transaction;
 
-rule "Alerte senior"
+rule "[R1] Marquer les gros montants"
 when
-  $p : Person(age >= 65)
+  $t : Transaction(amount > 10000)
 then
-  System.out.println("Senior detected : " + $p.getName());
+  System.out.println("[R1] Transaction " + $t.getId() + " est suspecte (gros montant)");
+  $t.setSuspicious(true);
+  update($t);
+end
+
+rule "[R2] VIP : jamais suspect"
+salience 10
+when
+  $t : Transaction(vip == true)
+then
+  System.out.println("[R2] Transaction " + $t.getId() + " est VIP, on annule la suspicion");
+  $t.setSuspicious(false);
+  update($t);
+end
+
+rule "[R3] Alerte si suspicion"
+when
+  $t : Transaction(suspicious == true)
+then
+  System.out.println("[R3] ALERTE : transaction " + $t.getId() + " est suspecte !");
 end
