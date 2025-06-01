@@ -11,8 +11,11 @@ public class App {
         KieContainer kc = ks.getKieClasspathContainer();
         KieSession ksession = kc.newKieSession("rulesSession");
 
-        Person p1 = new Person("Alice", 70);
+        Person p1 = new Person("Alice", 40, 35000.0, true);
+        Person p2 = new Person("Bob", 16, 50000.0, false);
         ksession.insert(p1);
+        ksession.fireAllRules();
+        ksession.insert(p2);
         ksession.fireAllRules();
         ksession.dispose();
     }
