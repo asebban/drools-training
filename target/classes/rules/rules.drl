@@ -1,10 +1,20 @@
 package rules
 
-import ma.medtech.drools.model.Person;
+import ma.medtech.drools.model.Customer;
 
-rule "Alerte senior"
+rule "Eligible si revenu > 3000 et âge > 25"
 when
-  $p : Person(age >= 65)
+    $c : Customer(age > 25, income > 3000)
 then
-  System.out.println("Senior detected : " + $p.getName());
+    $c.setEligible(true);
+    update($c);
+    System.out.println("Client " + $c.getName() + " est éligible");
+end
+
+rule "Non éligible par défaut"
+salience -10
+when
+    $c : Customer(eligible == false)
+then
+    System.out.println("Client " + $c.getName() + " n'est pas éligible");
 end
