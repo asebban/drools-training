@@ -18,6 +18,6 @@ public class DroolsConfig {
 
     @Bean
     public KieSession kieSession() {
-        return kieContainer().newKieSession("ksession-rules");
+        return kieContainer().newKieSession("rulesSession");
     }
 }
