@@ -8,3 +8,17 @@ when
 then
   System.out.println("Senior detected : " + $p.getName());
 end
+
+rule "Young man"
+when
+  $p : Person(age < 30)
+then
+  System.out.println("Young man detected : " + $p.getName());
+end
+
+rule "Adult man"
+when
+  $p : Person(age < 65, age >= 30)
+then
+  System.out.println("Adult man detected : " + $p.getName());
+end

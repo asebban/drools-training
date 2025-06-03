@@ -2,6 +2,9 @@ package ma.medtech.drools;
 
 import ma.medtech.drools.model.Person;
 import org.kie.api.KieServices;
+import org.kie.api.event.rule.AfterMatchFiredEvent;
+import org.kie.api.event.rule.DefaultAgendaEventListener;
+import org.kie.api.event.rule.MatchCreatedEvent;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
@@ -10,6 +13,19 @@ public class App {
         KieServices ks = KieServices.Factory.get();
         KieContainer kc = ks.getKieClasspathContainer();
         KieSession ksession = kc.newKieSession("rulesSession");
+
+        ksession.addEventListener(new DefaultAgendaEventListener() {
+            @Override
+            public void matchCreated(MatchCreatedEvent event) {
+                System.out.println("[TRACE] Match créé pour règle : " + event.getMatch().getRule().getName());
+            }
+
+            @Override
+            public void afterMatchFired(AfterMatchFiredEvent event) {
+                System.out.println("[TRACE] Règle exécutée : " + event.getMatch().getRule().getName());
+            }
+        });
+
 
         Person p1 = new Person("Alice", 70);
         ksession.insert(p1);
