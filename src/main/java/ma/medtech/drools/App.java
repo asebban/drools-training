@@ -1,6 +1,9 @@
 package ma.medtech.drools;
 
 import ma.medtech.drools.model.Person;
+
+import java.util.List;
+
 import org.kie.api.KieServices;
 import org.kie.api.event.rule.AfterMatchFiredEvent;
 import org.kie.api.event.rule.DefaultAgendaEventListener;
@@ -18,6 +21,10 @@ public class App {
             @Override
             public void matchCreated(MatchCreatedEvent event) {
                 System.out.println("[TRACE] Match créé pour règle : " + event.getMatch().getRule().getName());
+                List<Object> objects = event.getMatch().getObjects();
+                for (Object obj : objects) {
+                    System.out.println("[TRACE] Objet dans le match : " + obj);
+                }
             }
 
             @Override
