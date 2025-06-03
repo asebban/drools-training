@@ -1,0 +1,12 @@
+package rules.inefficient
+
+import ma.medtech.drools.model.Transaction
+
+rule "Comparer toutes les transactions"
+when
+  $t1 : Transaction()
+  $t2 : Transaction()
+  eval($t1 != $t2 && $t1.getCountry().equals($t2.getCountry()))
+then
+  System.out.println("Transactions dans le même pays détectées.");
+end

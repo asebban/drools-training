@@ -1,5 +1,12 @@
-<kmodule xmlns="http://www.drools.org/xsd/kmodule">
-  <kbase name="rules" packages="rules">
-    <ksession name="rulesSession"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+
+  <kbase name="InefficientKB" packages="rules.inefficient">
+    <ksession name="inefficientSession"/>
   </kbase>
+
+  <kbase name="OptimizedKB" packages="rules.optimized">
+    <ksession name="optimizedSession"/>
+  </kbase>
+
 </kmodule>

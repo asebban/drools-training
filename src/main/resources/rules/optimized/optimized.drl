@@ -1,0 +1,11 @@
+package rules.optimized
+
+import ma.medtech.drools.model.Transaction
+
+rule "Pays avec au moins deux transactions"
+when
+  $t1 : Transaction($c : country)
+  exists Transaction(country == $c, this != $t1)
+then
+  System.out.println("Pays avec au moins deux transactions détecté : " + $c);
+end
