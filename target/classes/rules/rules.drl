@@ -1,10 +1,27 @@
 package rules
 
-import ma.medtech.drools.model.Person;
+import ma.medtech.drools.model.Customer;
+global ma.medtech.drools.services.ExternalService externalService;
+global java.util.List riskyCustomers;
+global java.util.List nonRiskyCustomers;
 
-rule "Alerte senior"
+rule "customer is risky"
 when
-  $p : Person(age >= 65)
+  $c: Customer($name: name)
+  $age: Integer() from externalService.getAge($name)
+  $income: Double() from externalService.getIncome($name)
+  eval($age > 50 || $income < 20000.0)
 then
-  System.out.println("Senior detected : " + $p.getName());
+  riskyCustomers.add($c);
 end
+
+rule "customer is not risky"
+when
+  $c: Customer($name: name)
+  $age: Integer() from externalService.getAge($name)
+  $income: Double() from externalService.getIncome($name)
+  eval($age <= 50 && $income >= 20000.0)
+then
+  nonRiskyCustomers.add($c);
+end
+
