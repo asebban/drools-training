@@ -1,10 +1,50 @@
 package rules
 
-import ma.medtech.drools.model.Person;
+import java.util.List
+import ma.medtech.drools.model.Transaction
 
-rule "Alerte senior"
+global java.util.List alertes
+
+declare Suspicion
+    clientId : String
+    total : int
+end
+
+rule "Accumuler transactions > 1000 DH"
 when
-  $p : Person(age >= 65)
+    $clientId : String()
+    $total : Number(intValue > 3) from accumulate(
+        Transaction(clientId == $clientId, montant > 1000),
+        count(1)
+    )
 then
-  System.out.println("Senior detected : " + $p.getName());
+    alertes.add("Client " + $clientId + " a effectue " + $total + " transactions > 1000 DH");
+
+    // Insertion d'un fait dérivé
+    insert( new Suspicion($clientId, $total.intValue()) );
+end
+
+rule "Lister les transactions suspectes"
+when
+    $clientId : String()
+    $txs : List(size > 0) from collect(
+        Transaction(clientId == $clientId, montant > 1000)
+    )
+then
+    System.out.println("Client " + $clientId + " a " + $txs.size() + " transactions suspectes.");
+end
+
+rule "Evaluer type de transaction"
+when
+    $t : Transaction($m : montant, $type : type)
+    eval($m > 500 && $type.equals("cash"))
+then
+    System.out.println("Transaction cash elevee detectee : " + $m);
+end
+
+rule "détection de transactions suspectes"
+when
+    Suspicion($clientId : clientId, $total : total)
+then
+    System.out.println("Suspicion detectee : " + $clientId + " avec un total de " + $total + " transactions suspectes.");
 end
