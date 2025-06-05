@@ -31,3 +31,10 @@ then
   update($p);
 end
 
+rule "Afficher les personnes"
+when
+  $p : Person()
+then
+  System.out.println("[R0] " + $p.getName() + " a " + $p.getAge() + " ans");
+end
+
