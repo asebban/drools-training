@@ -13,6 +13,7 @@ public class App {
 
         Person p1 = new Person("Alice", 70);
         ksession.insert(p1);
+        ksession.insert("Hello World");
         ksession.fireAllRules();
         ksession.dispose();
     }

@@ -8,3 +8,10 @@ when
 then
   System.out.println("Senior detected : " + $p.getName());
 end
+
+rule "Hello World detection"
+when
+  $s : String(this == "Hello World" || this == "Hello World!")
+then
+  System.out.println("Sentence detected: " + $s + "!");
+end
