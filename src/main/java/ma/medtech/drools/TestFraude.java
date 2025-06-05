@@ -19,6 +19,7 @@ public class TestFraude {
         kSession.setGlobal("alertes", alertes);
 
         kSession.insert("Ali");
+        kSession.insert("Bob");
 
         // Transactions du client Ali
         kSession.insert(new Transaction("Ali", 1200, "cash"));
@@ -26,6 +27,9 @@ public class TestFraude {
         kSession.insert(new Transaction("Ali", 900, "cash"));
         kSession.insert(new Transaction("Ali", 1100, "cash"));
         kSession.insert(new Transaction("Ali", 1300, "card"));
+        kSession.insert(new Transaction("Bob", 1600, "cash"));
+        kSession.insert(new Transaction("Bob", 2000, "cash"));
+        kSession.insert(new Transaction("Bob", 1200, "cash"));
 
         kSession.fireAllRules();
         kSession.dispose();

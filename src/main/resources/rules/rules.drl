@@ -13,7 +13,7 @@ end
 rule "Accumuler transactions > 1000 DH"
 when
     $clientId : String()
-    $total : Number(intValue > 3) from accumulate(
+    $total : Number(intValue >= 3) from accumulate(
         Transaction(clientId == $clientId, montant > 1000),
         count(1)
     )
@@ -36,10 +36,10 @@ end
 
 rule "Evaluer type de transaction"
 when
-    $t : Transaction($m : montant, $type : type)
+    $t : Transaction($m : montant, $type : type, $clientId : clientId)
     eval($m > 500 && $type.equals("cash"))
 then
-    System.out.println("Transaction cash elevee detectee : " + $m);
+    System.out.println("Transaction cash elevee detectee : " + $m + " pour le client " + $clientId);
 end
 
 rule "détection de transactions suspectes"
