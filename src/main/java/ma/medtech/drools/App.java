@@ -13,11 +13,12 @@ public class App {
         StatelessKieSession session = kieContainer.newStatelessKieSession("rulesSession");
 
         Person jean = new Person("Jean", 70);
+        Person paul = new Person("Paul", 80);
 
         System.out.println("=== Avant exécution : " + jean);
         session.execute(jean);
         System.out.println("**************************");
-        session.execute(jean);
+        session.execute(paul);
         System.out.println("=== Après exécution : " + jean);
     }
 }
