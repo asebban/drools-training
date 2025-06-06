@@ -1,10 +1,17 @@
 package rules
 
-import ma.medtech.drools.model.Person;
+import ma.medtech.drools.model.WithdrawalEvent;
 
-rule "Alerte senior"
+declare WithdrawalEvent
+    @role( event )
+    @timestamp( timestamp )
+end
+
+rule "Double retrait suspect en moins de 2 minutes"
+no-loop true
 when
-  $p : Person(age >= 65)
+    $w1 : WithdrawalEvent(amount > 500)
+    $w2 : WithdrawalEvent(this != $w1, clientId == $w1.clientId, amount > 500, this after[0s, 2m] $w1)
 then
-  System.out.println("Senior detected : " + $p.getName());
+    System.out.println("FRAUDE : deux gros retraits pour le client " + $w1.getClientId());
 end
