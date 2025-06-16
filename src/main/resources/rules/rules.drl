@@ -37,7 +37,7 @@ end
 rule "Evaluer type de transaction"
 when
     $t : Transaction($m : montant, $type : type, $clientId : clientId)
-    eval($m > 500 && $type.equals("cash"))
+    eval($m > 1000 && $type.equals("cash"))
 then
     System.out.println("Transaction cash elevee detectee : " + $m + " pour le client " + $clientId);
 end
