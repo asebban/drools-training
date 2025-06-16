@@ -3,7 +3,7 @@ package rules
 import ma.medtech.drools.model.Client
 
 rule "Étape 1 : valider client"
-salience 10
+salience 100
 when
   $c : Client(valid == false)
 then
@@ -13,7 +13,7 @@ then
 end
 
 rule "Étape 2 : envoyer email"
-salience 100
+salience 10
 when
   $c : Client(valid == true)
 then
