@@ -40,17 +40,17 @@ public class App {
         ksession.addEventListener(new DefaultRuleRuntimeEventListener() {
             @Override
             public void objectInserted(ObjectInsertedEvent event) {
-                System.out.println("[TRACE] Objet inséré : " + event.getObject());
+                System.out.println("[TRACE] Object inserted : " + event.getObject());
             }
 
             @Override
             public void objectUpdated(ObjectUpdatedEvent event) {
-                System.out.println("[TRACE] Objet mis à jour : " + event.getObject());
+                System.out.println("[TRACE] Object updated : " + event.getObject());
             }
 
             @Override
             public void objectDeleted(ObjectDeletedEvent event) {
-                System.out.println("[TRACE] Objet supprimé : " + event.getOldObject());
+                System.out.println("[TRACE] Object deleted : " + event.getOldObject());
             }
         });
 
