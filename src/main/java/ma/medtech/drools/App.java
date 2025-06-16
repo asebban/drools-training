@@ -17,7 +17,7 @@ public class App {
         System.out.println("=== Première exécution avec age = 20 ===");
         session.fireAllRules();
 
-        System.out.println("\n=== Mise à jour : age = 15 ===");
+        System.out.println("\n=== Mise a jour : age = 15 ===");
         p.setAge(15);
         session.update(factHandle, p);
         session.fireAllRules();
