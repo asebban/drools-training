@@ -24,16 +24,16 @@ public class App {
         ksession.addEventListener(new DefaultAgendaEventListener() {
             @Override
             public void matchCreated(MatchCreatedEvent event) {
-                System.out.println("[TRACE] Match créé pour règle : " + event.getMatch().getRule().getName());
+                System.out.println("[TRACE] Match created for rule : " + event.getMatch().getRule().getName());
                 List<Object> objects = event.getMatch().getObjects();
                 for (Object obj : objects) {
-                    System.out.println("[TRACE] Objet dans le match : " + obj);
+                    System.out.println("[TRACE] Object in the match : " + obj);
                 }
             }
 
             @Override
             public void afterMatchFired(AfterMatchFiredEvent event) {
-                System.out.println("[TRACE] Règle exécutée : " + event.getMatch().getRule().getName());
+                System.out.println("[TRACE] Executed rule : " + event.getMatch().getRule().getName());
             }
         });
 
