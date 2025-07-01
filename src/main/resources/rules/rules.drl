@@ -27,7 +27,7 @@ end
 
 rule "Jeune client international"
 when
-  $c : Client(age < 40, country not in ("FR", "BE"))
+  $c : Client(age <= 30, country not in ("FR", "BE"))
 then
   System.out.println("Client jeune et non europeen : " + $c.getName());
 end
