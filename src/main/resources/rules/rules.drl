@@ -24,3 +24,14 @@ then
   update($p);
 end
 
+rule "R3"
+activation-group "discounts"
+lock-on-active true
+when
+  $p : Product(price > 900)
+then
+  $p.setDiscount(20);
+  System.out.println("[R1] Purshase of more than 900.0 -> Discount applied: " + $p.getDiscount());
+  update($p);
+end
+
