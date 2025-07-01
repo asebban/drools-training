@@ -7,6 +7,7 @@ when
   $s : String(this == "A")
 then
   System.out.println("Regle A");
+  insert("B");
 end
 
 rule "Validate B"
